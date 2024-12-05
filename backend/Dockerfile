@@ -1,23 +1,18 @@
-# Step 1: Use the official Python image
+# Use an official Python image
 FROM python:3.9-slim
 
-# Set the working directory for the backend
+# Set the working directory
 WORKDIR /app
 
-# Copy requirements.txt to install dependencies
-COPY backend/requirements.txt /app/
-
-# Install backend dependencies
+# Install dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the Django backend code
-COPY backend/ /app/
+# Copy the Django application
+COPY . .
 
-# Set environment variable to prevent Python from buffering output
-ENV PYTHONUNBUFFERED 1
-
-# Expose the port for the Django app (default is 8000)
+# Expose the port the app runs on
 EXPOSE 8000
 
-# Command to run Django application
+# Run the Django server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

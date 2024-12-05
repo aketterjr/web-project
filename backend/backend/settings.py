@@ -14,6 +14,8 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
+import pymysql
+pymysql.install_as_MySQLdb()
 
 load_dotenv()
 
@@ -98,11 +100,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'user_data',
-        'USER' : 'Andre',
-        'PASSWORD' : '5CVW931h$',
-        'HOST' : 'localhost',
-        'PORT' : '3306',
+        'NAME': os.environ.get('DB_NAME', 'mydatabase'),  # Name of the database
+        'USER': os.environ.get('DB_USER', 'user'),        # MySQL user
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'password'),  # MySQL password
+        'HOST': os.environ.get('DB_HOST', 'mysql'),  # MySQL service in Docker Compose
+        'PORT': os.environ.get('DB_PORT', '3306'),  # MySQL port
     }
 }
 

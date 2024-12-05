@@ -1,15 +1,48 @@
 services:
-  api:
-    build: ./api        
+  # MySQL service
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: '@NDre5CVW931h$'  # Root password for MySQL
+      MYSQL_DATABASE: 'user_data'         # Database name to create
+      MYSQL_USER: 'Andre'                   # A custom user (optional)
+      MYSQL_PASSWORD: '5CVW931h$'           # Password for the custom user
+    ports:
+      - "3306:3306"  # Expose MySQL port to the host
+    volumes:
+      - mysql_data:/var/lib/mysql  # Persist data between restarts
+
+  # Django backend
+  backend:
+    build:
+      context: ./backend # Directory with dockerfile
+      dockerfile: Dockerfile
+    container_name: backend
+    depends_on:
+      - mysql
+    environment:
+      - DB_NAME=user_data
+      - DB_USER=Andre
+      - DB_PASSWORD='5CVW931h$'
+      - DB_HOST=mysql  # Name of the MySQL service
+      - DB_PORT=3306
     ports:
       - "8000:8000"
     volumes:
-      - ./api:/api
-    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+      - .:/code
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
-  web:
-    build: ./frontend
+  frontend:
+    build:
+      context: ./frontend  # Path to your frontend application
+    container_name: frontend
     ports:
-      - "3000:3000"
+      - "3000:3000"  # Frontend port (React default is 3000)
+    depends_on:
+      - backend  # Ensure the backend is running before starting the frontend
     volumes:
-      - ./frontend:/frontend
+      - ./frontend:/usr/src/app  # Mount the frontend code for development
+
+volumes:
+  mysql_data:
