@@ -98,13 +98,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME', 'mydatabase'),  # Name of the database
-        'USER': os.environ.get('DB_USER', 'user'),        # MySQL user
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'password'),  # MySQL password
-        'HOST': os.environ.get('DB_HOST', 'mysql'),  # MySQL service in Docker Compose
-        'PORT': os.environ.get('DB_PORT', '3306'),  # MySQL port
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
     }
 }
 
