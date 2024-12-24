@@ -31,37 +31,57 @@ class Genre(models.Model):
 
 class Language(models.Model):
     """Model representing the language of a book"""
-    language = models.CharField(
+    name = models.CharField(
         max_length=100,
         unique=True,
         help_text="Enter the language"
     )
 
     def __str__(self):
-        return self.language
+        return self.name
     
     def get_absolute_url(self):
         return reverse('langauge-detail', args=[str(self.id)])
     
+    class Meta:
+        constraints = [
+            UniqueConstraint(
+                Lower('name'),
+                name='language_name_case_insensitive_unique',
+                violation_error_message="Language already exists"
+            ),
+        ]
+    
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
     title = models.CharField(max_length = 200)
-    author = models.ForeignKey('Author', on_delete = models.RESTRICT, null = True)
+    author = models.ForeignKey('Author', on_delete=models.RESTRICT, null=True)
     # Foreign Key used because book can only have one author, but authros can have multiple books.
 
     summary = models.TextField(
-        max_length = 1000, help_text = "Enter a brief description of the book")
+        max_length = 1000, help_text="Enter a brief description of the book")
     isbn = models.CharField('ISBN', max_length=13,
                             unique=True,
                             help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn'
                                       '">ISBN number</a>')
     genre = models.ManyToManyField(
         Genre, help_text="Select a genre for this book")
-    language = models.ManyToManyField(Language, help_text="Select the language of the book")
+    language = models.ManyToManyField(
+        Language, help_text="Select the language this book is written in")
 
     class Meta:
         ordering = ['title', 'author']
     
+    def display_genre(self):
+        """Creates a string for the Genre. Required to display genre in Admin."""
+        return ', '.join([genre.name for genre in self.genre.all()[:3]])
+
+    display_genre.short_description = 'Genre'
+
+    def display_language(self):
+        """Create a string for the languages."""
+        return ', '.join([language.name for language in self.language.all()[:3]])
+
     def __str__(self):
         """String for representing the Model object."""
         return self.title
