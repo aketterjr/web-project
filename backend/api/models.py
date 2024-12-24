@@ -108,11 +108,29 @@ class Author(models.Model):
         """String for representing the Model object."""
         return f'{self.last_name}, {self.first_name}'
 
-class Note(models.Model):
+class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notes")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
 
+    class Meta:
+        ordering = ['title', 'author']
+
+    def get_absolute_url(self):
+        return reverse('post-detail', args=[str(self.id)])
+    
     def __str__(self):
         return self.title
+    
+class Comment(models.Model):
+    content = models.TextField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, null=False)
+
+    class Meta:
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f"{self.content[:50]}..." if len(self.content) > 50 else self.content
