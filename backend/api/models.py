@@ -126,8 +126,8 @@ class Post(models.Model):
 class Comment(models.Model):
     content = models.TextField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
-    post = models.ForeignKey('Post', on_delete=models.CASCADE, null=False)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='comments')
 
     class Meta:
         ordering = ['created_at']

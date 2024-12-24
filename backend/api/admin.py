@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author, Genre, Book, Language, Post
+from .models import Author, Genre, Book, Language, Post, Comment
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
@@ -16,4 +16,23 @@ admin.site.register(Author, AuthorAdmin)
 # admin.site.register(Author)
 admin.site.register(Genre)
 admin.site.register(Language)
-admin.site.register(Post)
+class CommentAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Comment Information', {
+            'fields': ('content', 'post', 'author', 'created_at')
+        }),
+    )
+    list_display = ('content', 'post', 'author', 'created_at')
+    readonly_fields = ('created_at',)
+
+admin.site.register(Comment, CommentAdmin)
+
+class CommentInline(admin.TabularInline):
+    model = Comment
+
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'content')
+
+    inlines = [CommentInline]
+
+admin.site.register(Post, PostAdmin)
