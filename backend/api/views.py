@@ -12,7 +12,7 @@ class PostListCreate(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Post.objects.filter(author=user)
+        return Post.objects#.filter(author=user)
     
     def perform_create(self, serializer):
         if serializer.is_valid():
