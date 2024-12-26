@@ -4,6 +4,7 @@ from rest_framework import generics
 from .serializers import UserSerializer, PostSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Post
+from .models import Comment
 
 
 class PostListCreate(generics.ListCreateAPIView):
@@ -11,8 +12,7 @@ class PostListCreate(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        user = self.request.user
-        return Post.objects#.filter(author=user)
+        return Post.objects
     
     def perform_create(self, serializer):
         if serializer.is_valid():

@@ -23,6 +23,8 @@ function Home() {
             .catch((err) => alert(err));
     };
 
+    const getComments = () => {}
+
     const deletePost = (id) => {
         api
             .delete(`/api/posts/delete/${id}/`)
@@ -39,8 +41,11 @@ function Home() {
         api
             .post("/api/posts/", { content, title })
             .then((res) => {
-                if (res.status === 201) alert("Post created!");
-                else alert("Failed to make post.");
+                if (res.status !== 201) alert("Failed to make post.");
+                else {
+                    setTitle("");
+                    setContent("");
+                }
                 getPosts();
             })
             .catch((err) => alert(err));
