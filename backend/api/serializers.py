@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Post
+from .models import Book
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,3 +20,10 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ["id", "title", "content", "created_at", "author", ]
         extra_kwargs = {"author": {"read_only": True}}
+
+class BookSerializer(serializers.ModelSerializer):
+    author = serializers.StringRelatedField()
+
+    class Meta:
+        model = Book
+        fields = ['id', 'title', 'author', 'isbn', 'display_genre', 'display_language']
