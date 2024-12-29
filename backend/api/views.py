@@ -2,13 +2,17 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
 from .serializers import UserSerializer, PostSerializer, BookSerializer
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from .models import Post, Comment, Book
 from django.http import HttpResponse
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def get_trending_books(request):
-    books = books.objects.all()[:5]
+    print(f"Request received: {request}")
+    books = Book.objects.all()[:5]
     serializer = BookSerializer(books, many=True)
     return Response(serializer.data)
 

@@ -43,6 +43,7 @@ function Forum() {
             .then((res) => {
                 if (res.status !== 201) alert("Failed to make post.");
                 else {
+                    alert("Post Created!");
                     setTitle("");
                     setContent("");
                 }
