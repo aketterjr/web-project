@@ -7,12 +7,9 @@ const Carousel = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
 
     useEffect(() => {
-        console.log("useEffect triggered");
         const fetchBooks = async () => {
             try {
-                console.log("getting books");
                 const response = await api.get('/api/trending-books/');
-                console.log("Fetched Books:", response.data);
                 setBooks(response.data);
             } catch (error) {
                 console.error('Error fetching books:', error);
@@ -23,20 +20,26 @@ const Carousel = () => {
     }, []);
 
     const carouselInfiniteScroll = () => {
+        // books.append(books.pop())
         if (currentIndex === books.length-1) {
             return setCurrentIndex(0)
         }
         return setCurrentIndex(currentIndex+1)
     }
 
-    useEffect(()=> {
-        const interval = setInterval(()=> {carouselInfiniteScroll()}, 3000)
+    // Everytime the books array is updates, run this code to start the infinite scroll
+    useEffect(() => {
+        /* ---------------------------------------------------
+            Store the intervalId and set the interval for the 
+            infinite scroll to 3000 milliseconds (3 seconds) 
+        */
+        const interval = setInterval(()=> {carouselInfiniteScroll()}, 5000)
         return () => clearInterval(interval)
-    }, [books]);
+    });
     
     return (
         <div className='carousel-container'>
-            { books.map((book, index) => (
+            { books.slice(0, -1).map((book, index) => (
                 <div
                     className='carousel-item'
                     style={{transform: `translate(-${currentIndex * 100}%)`}}
@@ -47,6 +50,17 @@ const Carousel = () => {
                     {/* <img src={book.image_url} alt={book.title} /> */}
                 </div>
             ))}
+            {
+                <div
+                    className='carousel-item-end'
+                    style={{transform: `translate(-${currentIndex * 100}%)`}}
+                    key={books.length-1}
+                >
+                    <h2>{books[books.length-1]?.title}</h2>
+                    <p>{books[books.length-1]?.author}</p>
+                    {/* <img src={book.image_url} alt={book.title} /> */}
+                </div>
+            }
         </div>
     );
 };

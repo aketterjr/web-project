@@ -13,3 +13,14 @@
     justify-content: center;
     transition: 1s cubic-bezier(0.39, 0.575, 0.565, 1);
 }
+.carousel-item-end {
+    height: 20rem;;
+    min-width: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 2s, opacity 2s linear; 
+}
