@@ -53,17 +53,16 @@ class Language(models.Model):
         ]
     
 class Book(models.Model):
-    """Model representing a book (but not a specific copy of a book)."""
+    """Model representing a book"""
     title = models.CharField(max_length = 200)
     author = models.ForeignKey('Author', on_delete=models.RESTRICT, null=True)
-    # Foreign Key used because book can only have one author, but authros can have multiple books.
+    # Foreign Key used because book can only have one author, but authors can have multiple books.
 
     summary = models.TextField(
         max_length = 1000, help_text="Enter a brief description of the book")
     isbn = models.CharField('ISBN', max_length=13,
                             unique=True,
-                            help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn'
-                                      '">ISBN number</a>')
+                            help_text='13 Character ISBN number</a>')
     genre = models.ManyToManyField(
         Genre, help_text="Select a genre for this book")
     language = models.ManyToManyField(

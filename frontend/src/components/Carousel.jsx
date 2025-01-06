@@ -20,7 +20,6 @@ const Carousel = () => {
     }, []);
 
     const carouselInfiniteScroll = () => {
-        // books.append(books.pop())
         if (currentIndex === books.length-1) {
             return setCurrentIndex(0)
         }
@@ -33,7 +32,7 @@ const Carousel = () => {
             Store the intervalId and set the interval for the 
             infinite scroll to 3000 milliseconds (3 seconds) 
         */
-        const interval = setInterval(()=> {carouselInfiniteScroll()}, 5000)
+        const interval = setInterval(()=> {carouselInfiniteScroll()}, 3000)
         return () => clearInterval(interval)
     });
     
@@ -52,7 +51,7 @@ const Carousel = () => {
             ))}
             {
                 <div
-                    className='carousel-item-end'
+                    className='carousel-item'
                     style={{transform: `translate(-${currentIndex * 100}%)`}}
                     key={books.length-1}
                 >
