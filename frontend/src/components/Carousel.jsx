@@ -26,7 +26,6 @@ const Carousel = () => {
         return setCurrentIndex(currentIndex+1)
     }
 
-    // Everytime the books array is updates, run this code to start the infinite scroll
     useEffect(() => {
         /* ---------------------------------------------------
             Store the intervalId and set the interval for the 
@@ -34,11 +33,11 @@ const Carousel = () => {
         */
         const interval = setInterval(()=> {carouselInfiniteScroll()}, 3000)
         return () => clearInterval(interval)
-    });
+    }, [books]);
     
     return (
         <div className='carousel-container'>
-            { books.slice(0, -1).map((book, index) => (
+            {books.map((book, index) => (
                 <div
                     className='carousel-item'
                     style={{transform: `translate(-${currentIndex * 100}%)`}}
@@ -49,17 +48,6 @@ const Carousel = () => {
                     {/* <img src={book.image_url} alt={book.title} /> */}
                 </div>
             ))}
-            {
-                <div
-                    className='carousel-item'
-                    style={{transform: `translate(-${currentIndex * 100}%)`}}
-                    key={books.length-1}
-                >
-                    <h2>{books[books.length-1]?.title}</h2>
-                    <p>{books[books.length-1]?.author}</p>
-                    {/* <img src={book.image_url} alt={book.title} /> */}
-                </div>
-            }
         </div>
     );
 };
