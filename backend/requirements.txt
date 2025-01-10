@@ -9,6 +9,4 @@ sqlparse
 psycopg2-binary
 python-dotenv
 gunicorn
-pymysql
 cryptography>=3.4.7
-mysqlclient>=2.1.1
