@@ -33,7 +33,7 @@ const Carousel = () => {
         */
         const interval = setInterval(()=> {carouselInfiniteScroll()}, 3000)
         return () => clearInterval(interval)
-    }, [books]);
+    });
     
     return (
         <div className='carousel-container'>

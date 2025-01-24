@@ -1,9 +1,9 @@
-import React from "react";
-import "../styles/Post.css"
+import "../styles/Post.css";
+import PropTypes from 'prop-types';
 
 function Post({ post, onDelete }) {
     const formattedDate = new Date(post.created_at).toLocaleDateString("en-US")
-    const current_user = 90
+    // const current_user = 90
 
     return (
         <div className="post-container">
@@ -16,6 +16,18 @@ function Post({ post, onDelete }) {
                 </button>
         </div>
     );
+}
+
+Post.propTypes = {
+    post: PropTypes.shape({
+        author: PropTypes.string,
+        title: PropTypes.string,
+        content: PropTypes.string,
+        date: PropTypes.Date,
+        created_at: PropTypes.Date,
+        id: PropTypes.number
+    }),
+    onDelete: PropTypes.func.isRequired,
 }
 
 export default Post

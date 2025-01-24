@@ -23,7 +23,7 @@ function Forum() {
             .catch((err) => alert(err));
     };
 
-    const getComments = () => {}
+    // const getComments = () => {}
 
     const deletePost = (id) => {
         api

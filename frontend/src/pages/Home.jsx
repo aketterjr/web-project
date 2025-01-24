@@ -7,6 +7,6 @@ function Home() {
             <Carousel />
         </div>
     );
-};
+}
 
 export default Home;
