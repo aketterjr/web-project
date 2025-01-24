@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import '../styles/Carousel.css'
 import api from '../api';
 
+const BACKEND_URL = "http://localhost:8000";
+
 const Carousel = () => {
     const [books, setBooks] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0)
@@ -31,7 +33,7 @@ const Carousel = () => {
             Store the intervalId and set the interval for the 
             infinite scroll to 3000 milliseconds (3 seconds) 
         */
-        const interval = setInterval(()=> {carouselInfiniteScroll()}, 3000)
+        const interval = setInterval(()=> {carouselInfiniteScroll()}, 5000)
         return () => clearInterval(interval)
     });
     
@@ -43,9 +45,11 @@ const Carousel = () => {
                     style={{transform: `translate(-${currentIndex * 100}%)`}}
                     key={index}
                 >
-                    <h2>{book.title}</h2>
-                    <p>{book.author}</p>
-                    {/* <img src={book.image_url} alt={book.title} /> */}
+                    <img src={`${BACKEND_URL}${book.cover}`}/>
+                    <div>
+                        <h2>{book.title}</h2>
+                        <p>{book.author}</p>
+                    </div>
                 </div>
             ))}
         </div>

@@ -13,3 +13,15 @@
     justify-content: center;
     transition: 1s cubic-bezier(0.39, 0.575, 0.565, 1);
 }
+
+.carousel-item h2 {
+    font-size: 40px;
+    margin-bottom: 5px;
+    margin-left: 30px
+}
+
+.carousel-item p {
+    font-size: 20px;
+    margin-top: 0;
+    margin-left: 30px;
+}

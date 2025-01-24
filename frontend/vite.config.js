@@ -7,6 +7,9 @@ export default defineConfig({
     host: '0.0.0.0',
     open: true,
     port: 3000,
+    watch: {
+      usePolling: true,
+    }
   },
   resolve: {
     alias: {

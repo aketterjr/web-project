@@ -26,4 +26,4 @@ class BookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Book
-        fields = ['id', 'title', 'author', 'isbn', 'display_genre', 'display_language']
+        fields = ['id', 'title', 'author', 'isbn', 'display_genre', 'display_language', 'cover']

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse # Used to get URL for specified ID
 from django.db.models import UniqueConstraint
 from django.db.models.functions import Lower
+from django.utils.html import format_html
 
 class Genre(models.Model):
     """Model representing a book genre."""
@@ -57,6 +58,14 @@ class Book(models.Model):
     title = models.CharField(max_length = 200)
     author = models.ForeignKey('Author', on_delete=models.RESTRICT, null=True)
     # Foreign Key used because book can only have one author, but authors can have multiple books.
+    cover = models.ImageField(upload_to='books/', default='books/default_cover.png')
+
+    def cover_tag(self):
+        if self.cover:
+            return format_html('<img src="{}" style="width: 50px; height: auto;" />', self.cover.url)
+        return "No Cover"
+    
+    cover_tag.short_description = "Preview"
 
     summary = models.TextField(
         max_length = 1000, help_text="Enter a brief description of the book")
@@ -105,7 +114,7 @@ class Author(models.Model):
     
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.last_name}, {self.first_name}'
+        return f'{self.first_name} {self.last_name}'
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
