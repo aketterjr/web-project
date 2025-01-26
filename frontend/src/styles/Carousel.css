@@ -4,14 +4,26 @@
     flex-wrap: nowrap;
     overflow: hidden;
 }
+
 .carousel-item {
-    height: 20rem;;
+    height: 20rem;
     min-width: 100%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+    opacity: 1;
+	animation-name: fadeInOut;
+    animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+	animation-duration: 5s;
+}
+
+@keyframes fadeInOut {
+	0% {opacity: 0;}
+	20% {opacity: 1;}
+    80% {opacity: 1;}
+    100% {opacity: 0;}
 }
 
 .carousel-item h2 {

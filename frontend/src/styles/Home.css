@@ -1,0 +1,41 @@
+.button {
+    border-radius: 8px;
+    text-align: center;
+    font: 12pt Calibri;
+    width: 100px;
+}
+
+.publish {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 50px;
+    margin-left: auto;
+    height: 2rem;
+    background-color: grey;
+    color: white;
+}
+
+.publish:hover {
+    background-color:dimgray;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.login {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 20px;
+    margin-left: 0;
+    height: 2rem;
+    background-color: white;
+    color: dimgray;
+}
+
+.header {
+    display: flex;
+    height: 4rem;
+    min-width: 100%; 
+    text-align: center;
+}

@@ -22,6 +22,7 @@ const Carousel = () => {
     }, []);
 
     const carouselInfiniteScroll = () => {
+        // This is used to put the last book back to the front 
         if (currentIndex === books.length-1) {
             return setCurrentIndex(0)
         }
